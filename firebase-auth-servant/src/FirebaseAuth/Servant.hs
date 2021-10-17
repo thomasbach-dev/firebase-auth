@@ -3,6 +3,7 @@ module FirebaseAuth.Servant
   ( FirebaseAuth
   , authHandler
   , AuthJWT.User(..)
+  , AuthJWT.GoogleJWKStore
   , AuthJWT.newEmptyGoogleJWKStore
   ) where
 
