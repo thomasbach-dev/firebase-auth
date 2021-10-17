@@ -1,18 +1,14 @@
 module FirebaseAuth.JWT.Internal
-  ( jsonOptionsSkipLowerCaseThenSnakeCase
+  ( jsonOptionsSnakeCase
   ) where
 
 import qualified Data.Aeson as A
 
 import Data.Char (isLower, toLower)
 
-jsonOptionsSkipLowerCaseThenSnakeCase :: A.Options
-jsonOptionsSkipLowerCaseThenSnakeCase =
-  A.defaultOptions { A.fieldLabelModifier = toSnakeCase . lowerFirst . dropWhile isLower }
-
-lowerFirst :: String -> String
-lowerFirst (c:cs) = toLower c:cs
-lowerFirst []     = []
+jsonOptionsSnakeCase :: A.Options
+jsonOptionsSnakeCase =
+  A.defaultOptions { A.fieldLabelModifier = toSnakeCase  }
 
 toSnakeCase :: String -> String
 toSnakeCase [] = []

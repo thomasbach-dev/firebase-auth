@@ -1,9 +1,10 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
 module FirebaseAuth.JWT
   ( validationSettings
   , GoogleJWKStore
   , newEmptyGoogleJWKStore
   , fetchGoogleJWKs
-  , TokenUser(..)
+  , User(..)
   ) where
 
 import qualified Crypto.JOSE       as JOSE
@@ -93,14 +94,14 @@ x509ToJWK (JOSE.Base64X509 c) = either (throwError . show) pure jwk
     jwk :: Either JOSE.Error JOSE.JWK
     jwk = runExcept $ JOSE.fromX509Certificate c
 
-data TokenUser = TokenUser { tuUserId        :: T.Text
-                           , tuEmail         :: T.Text
-                           , tuEmailVerified :: Bool
-                           } deriving (Eq, Generic, Show)
+data User = User { userId        :: T.Text
+                 , email         :: T.Text
+                 , emailVerified :: Bool
+                 } deriving (Eq, Generic, Show)
 
-instance A.ToJSON TokenUser where
-  toJSON = A.genericToJSON Internal.jsonOptionsSkipLowerCaseThenSnakeCase
-  toEncoding = A.genericToEncoding Internal.jsonOptionsSkipLowerCaseThenSnakeCase
+instance A.ToJSON User where
+  toJSON = A.genericToJSON Internal.jsonOptionsSnakeCase
+  toEncoding = A.genericToEncoding Internal.jsonOptionsSnakeCase
 
-instance A.FromJSON TokenUser where
-  parseJSON = A.genericParseJSON Internal.jsonOptionsSkipLowerCaseThenSnakeCase
+instance A.FromJSON User where
+  parseJSON = A.genericParseJSON Internal.jsonOptionsSnakeCase
