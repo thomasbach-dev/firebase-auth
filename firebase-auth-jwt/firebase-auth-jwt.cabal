@@ -29,7 +29,7 @@ library
 
     build-depends:    base
                       -- Due to jose-0.8.*
-                    , aeson ^>= 1.5
+                    , aeson ^>= {1.4, 1.5}
                     , containers
                     , http-conduit
                     , jose
