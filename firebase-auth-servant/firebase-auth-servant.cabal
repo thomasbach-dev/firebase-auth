@@ -1,0 +1,55 @@
+cabal-version:      3.0
+name:               firebase-auth-servant
+version:            0.1.0.0
+synopsis:           Firebase Authentication for Servant
+
+description:        Firebase Authentication for Servant APIs.
+homepage:           https://github.com/thomasbach-dev/firebase-auth
+
+bug-reports:        https://github.com/thomasbach-dev/firebase-auth/issues
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Thomas Bach
+maintainer:         info@thomasbach.dev
+
+-- A copyright notice.
+-- copyright:
+category:           Authentication, Servant, Web
+
+
+library
+    exposed-modules:  FirebaseAuth.Servant
+
+    default-extensions: DataKinds
+                      , OverloadedStrings
+                      , ScopedTypeVariables
+                      , TypeFamilies
+
+    build-depends:    base
+                    , bytestring
+                    , firebase-auth-jwt
+                    , memory
+                    , mtl
+                    , jose
+                    , servant
+                    , servant-auth
+                    , servant-auth-server
+                    , servant-server
+                    , wai
+                    , witch
+    hs-source-dirs:   src
+    default-language: Haskell2010
+    ghc-options:      -Wall
+                      -Wcompat
+                      -Wincomplete-record-updates
+                      -Wincomplete-uni-patterns
+                      -Wredundant-constraints
+
+test-suite spec
+    default-language: Haskell2010
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Spec.hs
+    build-depends:    firebase-auth-servant
+                    , base
+                    , hspec
