@@ -1,3 +1,4 @@
 packages:
   firebase-auth-jwt
   firebase-auth-servant
+  firebase-auth-servant-docs
