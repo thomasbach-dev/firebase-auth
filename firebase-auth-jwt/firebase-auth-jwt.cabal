@@ -1,0 +1,34 @@
+cabal-version:      3.0
+name:               firebase-auth-jwt
+version:            0.1.0.0
+synopsis:           JWT part of Firebase Authentication
+
+description:        JWT part for Firebase Authentication.
+homepage:           https://github.com/thomasbach-dev/firebase-auth
+
+bug-reports:        https://github.com/thomasbach-dev/firebase-auth/issues
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Thomas Bach
+maintainer:         info@thomasbach.dev
+
+-- A copyright notice.
+-- copyright:
+category:           Authentication, Web
+
+
+library
+    exposed-modules:  FirebaseAuth.JWT
+
+    build-depends:    base
+    hs-source-dirs:   src
+    default-language: Haskell2010
+
+test-suite spec
+    default-language: Haskell2010
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Spec.hs
+    build-depends:    firebase-auth-jwt
+                    , base
+                    , hspec

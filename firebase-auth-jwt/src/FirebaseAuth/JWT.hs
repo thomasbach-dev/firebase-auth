@@ -1,0 +1,3 @@
+module FirebaseAuth.JWT
+  (
+  ) where
