@@ -18,7 +18,7 @@ import Data.ByteArray                   (constEq)
 import Network.Wai                      (Request, requestHeaders)
 import Servant.API.Experimental.Auth    (AuthProtect)
 import Servant.Auth.JWT                 (FromJWT, ToJWT)
-import Servant.Server                   (err401)
+import Servant.Server                   (ServerError (errBody), err401)
 import Servant.Server.Experimental.Auth (AuthHandler, AuthServerData, mkAuthHandler)
 import Witch                            (from)
 
@@ -36,22 +36,25 @@ authHandler :: String  -- ^ Your firebase project id
             -> AuthHandler Request AuthJWT.User
 authHandler projectId keyStore = mkAuthHandler $ \req -> do
   token <- case lookup "Authorization" $ requestHeaders req of
-    Nothing -> throwError err401
+    Nothing -> throwError err401 { errBody = "Missing Authorization header!" }
     Just authHdr -> do
       let bearer = "Bearer "
           (mbearer, rest) = BS.splitAt (BS.length bearer) authHdr
       if mbearer `constEq` bearer
         then return rest
-        else throwError err401
+        else throwError err401 { errBody = "Expected Bearer authorization type!" }
   eitherJws :: Either JOSE.Error (JOSE.CompactJWS JOSE.JWSHeader) <-
     runExceptT . JOSE.decodeCompact $ from token
   case eitherJws of
-    Left _ -> throwError err401
+    Left err -> throwError err401 { errBody = "Error when decoding token: " <> from (show err) }
     Right jws -> do
       claims <- liftIO . runExceptT $
         JOSE.verifyClaims (AuthJWT.validationSettings projectId) keyStore jws
       case claims of
-         Left _ -> throwError err401
+         Left err -> throwError
+                       err401 { errBody = "Error when checking JWT claims: " <> from (show err) }
          Right c -> case SAS.decodeJWT c of
-           Left _     -> throwError err401
+           Left err   -> throwError
+                           err401 { errBody = "Error when parsing information from token: "
+                                              <> from (show err)}
            Right user -> return user
