@@ -3,15 +3,21 @@ module FirebaseAuth.Servant.Docs () where
 
 import qualified Servant.Docs as Docs
 
-import Control.Lens  ((.~))
+import Control.Lens  ((%~), (|>))
 import Data.Function ((&))
 import Data.Proxy    (Proxy (..))
 import Servant       ((:>))
 
 import qualified FirebaseAuth.Servant as AuthServant
 
--- | TODO Provide something meaningful here
 instance Docs.HasDocs api => Docs.HasDocs (AuthServant.FirebaseAuth :> api) where
   docsFor _ (endpoint, action) = Docs.docsFor (Proxy @api) (endpoint, action')
     where
-      action' = action & Docs.authInfo .~ []
+      action' = action & Docs.authInfo %~ (|> info)
+      info = Docs.DocAuthentication intro reqData
+      intro = "This endpoint requires authentication!"
+      reqData = unwords
+        [ "- an `Authorization` header"
+        , "where the value starts with `Bearer: ` followed by a JWT token;"
+        , "the token has to be issued by Google Firebase;"
+        ]
