@@ -21,20 +21,23 @@ library
     exposed-modules:  FirebaseAuth.Servant
 
     default-extensions: DataKinds
+                      , FlexibleContexts
                       , OverloadedStrings
                       , ScopedTypeVariables
                       , TypeFamilies
 
     build-depends:    base
+                    , aeson
                     , bytestring
                     , firebase-auth-jwt
+                    , lens
                     , memory
                     , mtl
                     , jose
                     , servant
-                    , servant-auth
-                    , servant-auth-server
                     , servant-server
+                    , text
+                    , unordered-containers
                     , wai
                     , witch
     hs-source-dirs:   src
