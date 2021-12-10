@@ -7,8 +7,7 @@ import qualified Data.Aeson as A
 import Data.Char (isLower, toLower)
 
 jsonOptionsSnakeCase :: A.Options
-jsonOptionsSnakeCase =
-  A.defaultOptions { A.fieldLabelModifier = toSnakeCase  }
+jsonOptionsSnakeCase = A.defaultOptions { A.fieldLabelModifier = toSnakeCase  }
 
 toSnakeCase :: String -> String
 toSnakeCase [] = []
