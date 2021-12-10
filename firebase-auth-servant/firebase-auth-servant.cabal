@@ -16,10 +16,7 @@ maintainer:         info@thomasbach.dev
 -- copyright:
 category:           Authentication, Servant, Web
 
-
-library
-    exposed-modules:  FirebaseAuth.Servant
-
+common common-options
     default-extensions: DataKinds
                       , FlexibleContexts
                       , OverloadedStrings
@@ -40,19 +37,25 @@ library
                     , unordered-containers
                     , wai
                     , witch
-    hs-source-dirs:   src
-    default-language: Haskell2010
+
     ghc-options:      -Wall
                       -Wcompat
                       -Wincomplete-record-updates
                       -Wincomplete-uni-patterns
                       -Wredundant-constraints
 
+library
+    import:           common-options
+    hs-source-dirs:   src
+
+    exposed-modules:  FirebaseAuth.Servant
+
+
 test-suite spec
-    default-language: Haskell2010
-    type:             exitcode-stdio-1.0
+    import:           common-options
     hs-source-dirs:   test
+    type:             exitcode-stdio-1.0
     main-is:          Spec.hs
+
     build-depends:    firebase-auth-servant
-                    , base
                     , hspec
