@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               firebase-auth-jwt
-version:            0.2.0.0
+version:            0.3.0.0
 synopsis:           JWT part of Firebase Authentication
 
 description:        JWT part for Firebase Authentication.
@@ -24,8 +24,7 @@ common common-options
                       , OverloadedStrings
 
     build-depends:    base
-                      -- Due to jose-0.8.*
-                    , aeson ^>= {1.4, 1.5}
+                    , aeson
                     , containers
                     , http-conduit
                     , jose
@@ -49,7 +48,6 @@ library
 
     exposed-modules:  FirebaseAuth.JWT
                     , FirebaseAuth.JWT.Internal
-
 
 test-suite spec
     import:           common-options

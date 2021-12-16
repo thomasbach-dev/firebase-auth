@@ -15,7 +15,6 @@ maintainer:         info@thomasbach.dev
 -- copyright:
 category:           Authentication, Servant, Web
 
-
 library
     exposed-modules:  FirebaseAuth.Servant.Docs
 
@@ -25,7 +24,7 @@ library
                       , TypeOperators
 
     build-depends:    base
-                    , firebase-auth-servant >= 0.2
+                    , firebase-auth-servant
                     , lens
                     , servant-docs
                     , servant-server
@@ -33,6 +32,9 @@ library
     default-language: Haskell2010
     ghc-options:      -Wall
                       -Wcompat
+                      -Wcpp-undef
+                      -Widentities
                       -Wincomplete-record-updates
                       -Wincomplete-uni-patterns
+                      -Wpartial-fields
                       -Wredundant-constraints

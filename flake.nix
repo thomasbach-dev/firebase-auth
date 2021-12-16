@@ -1,7 +1,7 @@
 {
   description = "A very basic flake";
   inputs = {
-    haskellNix.url = "github:input-output-hk/haskell.nix/3aa5ffc0afef728894a08c33a06029997cfd3872";
+    haskellNix.url = "github:input-output-hk/haskell.nix/bc471e5235246ca015cd6755adfe1feaa8761498";
     flake-utils.url = "github:numtide/flake-utils/74f7e4319258e287b0f9cb95426c9853b282730b";
     nixpkgs.follows = "haskellNix/nixpkgs-unstable";
   };
@@ -14,7 +14,7 @@
                        firebase-auth =
                          final.haskell-nix.project' {
                            src = ./.;
-                           compiler-nix-name = "ghc884";
+                           compiler-nix-name = "ghc8107";
                            shell.tools = {
                              cabal = {};
                              haskell-language-server = {};

@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               firebase-auth-servant
-version:            0.2.0.0
+version:            0.3.0.0
 synopsis:           Firebase Authentication for Servant
 
 description:        Firebase Authentication for Servant APIs.
@@ -40,8 +40,11 @@ common common-options
 
     ghc-options:      -Wall
                       -Wcompat
+                      -Wcpp-undef
+                      -Widentities
                       -Wincomplete-record-updates
                       -Wincomplete-uni-patterns
+                      -Wpartial-fields
                       -Wredundant-constraints
 
 library
@@ -49,7 +52,6 @@ library
     hs-source-dirs:   src
 
     exposed-modules:  FirebaseAuth.Servant
-
 
 test-suite spec
     import:           common-options
